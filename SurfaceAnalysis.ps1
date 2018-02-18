@@ -3,7 +3,6 @@ $toolLoc = "C:\Users\user\Documents\tools\"
 
 # Set target file
 $target = "C:\Windows\notepad.exe"
-$stream = New-Obbject IO.StreamReader $target
 
 # Exif
 $exiftool = $toolLoc + "exiftool-10.79\exiftool.exe"
@@ -60,9 +59,9 @@ while($i -le $out.Length){
 $result = "File Information: `r`n  " + $exif[1] + "`r`n  " + $exif[3] + "`r`n  " + $exif[4] + "`r`n  " + $exif[5] + "`r`n  " + $exif[6]
 ##Hash
 $result += "`r`n`r`n" + "Hash: "
-$result += "`r`n  " + $hashMd5.Algorithm + ":       " + $hashMd5.Hash
-$result += "`r`n  " + $hashSha1.Algorithm + ":      " + $hashSha1.Hash
-$result += "`r`n  " + $hashSha256.Algorithm + ":    " + $hashSha256.Hash
+$result += "`r`n  MD5:       " + $hashMd5
+$result += "`r`n  SHA1:      " + $hashSha1
+$result += "`r`n  SHA256:    " + $hashSha256
 ## Fuzzy Hash
 $result += "`r`n`  " + "FuzzyHash: " + $fuzzyHash
 ## File Type
