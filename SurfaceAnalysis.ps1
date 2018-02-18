@@ -67,9 +67,9 @@ foreach($s in $exif){
 }
 ##Hash
 $result += "`r`n`r`n" + "Hash: "
-$result += "`r`n  MD5:       " + $hashMd5
-$result += "`r`n  SHA1:      " + $hashSha1
-$result += "`r`n  SHA256:    " + $hashSha256
+$result += "`r`n MD5:       " + $hashMd5
+$result += "`r`n SHA1:      " + $hashSha1
+$result += "`r`n SHA256:    " + $hashSha256
 ## Fuzzy Hash
 $result += "`r`n`  " + "FuzzyHash: " + $fuzzyHash
 ## File Type
