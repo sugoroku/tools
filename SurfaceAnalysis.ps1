@@ -57,7 +57,14 @@ while($i -le $out.Length){
 # Create output image
 $result = "+++++ Surface Analysis Information +++++"
 ## Exif
-$result += "`r`n" + "File Information: `r`n  " + $exif[1] + "`r`n  " + $exif[3] + "`r`n  " + $exif[4] + "`r`n  " + $exif[5] + "`r`n  " + $exif[6]
+$result += "`r`n" + "File Information: `r`n  "
+$i = 0
+foreach($s in $exif){
+    if($i -ne 0){
+        $result += $s + "`r`n  "
+    }
+    $i++
+}
 ##Hash
 $result += "`r`n`r`n" + "Hash: "
 $result += "`r`n  MD5:       " + $hashMd5
