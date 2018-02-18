@@ -3,6 +3,7 @@ $toolLoc = "C:\Users\user\Documents\tools\"
 
 # Set target file
 $target = "C:\Windows\notepad.exe"
+$stream = New-Obbject IO.StreamReader $target
 
 # Exif
 $exiftool = $toolLoc + "exiftool-10.79\exiftool.exe"
@@ -10,9 +11,25 @@ $out = & $exiftool $target
 $exif = $out -split "`r`n"
 
 # Hash (MD5, SHA1, SHA256) 
-$hashMd5 = Get-FileHash -Algorithm md5 $target
-$hashSha1 = Get-FileHash -Algorithm SHA1 $target
-$hashSha256 = Get-FileHash -Algorithm SHA256 $target
+## MD5
+$stream = New-Object IO.StreamReader $target
+$md5 = [System.Security.Cryptography.MD5]::Create()
+$tmp = $md5.ComputeHash($stream.BaseStream)
+$hashMd5 = ""
+$tmp | %{ $hashMd5 += $_.ToString("x2") }
+## SHA1
+$sha1 = [System.Security.Cryptography.SHA1]::Create()
+$tmp = $sha1.ComputeHash($stream.BaseStream)
+$hashSha1 = ""
+$tmp | %{ $hashSha1 += $_.ToString("x2") }
+##SHA256
+$sha256 = [System.Security.Cryptography.SHA256]::Create()
+$tmp = $sha256.ComputeHash($stream.BaseStream)
+$tmp | %{ $hashSha256 += $_.ToString("x2") }
+$stream.Close()
+#$hashMd5 = Get-FileHash -Algorithm md5 $target
+#$hashSha1 = Get-FileHash -Algorithm SHA1 $target
+#$hashSha256 = Get-FileHash -Algorithm SHA256 $target
 
 # Fuzzy Hash 
 $ssdeep = $toolLoc + "ssdeep-2.14.1\ssdeep.exe"
@@ -55,3 +72,4 @@ $result += "`r`n" + $fileType
 $result += "VirusTotal: " + "`r`n ***Please Write SearchResult***`r`n"
 
 Write-Output $result
+
